@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="クラウドキッチン新宿店｜デリバリー注文ページ" />
+  <title>クラウドキッチン新宿店</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#111a26;
+      --text:#e8edf4;
+      --muted:#a9b4c2;
+      --line:rgba(255,255,255,.12);
+      --accent:#46d18d;
+      --shadow: 0 12px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 24px;
+      --max: 1120px;
+      --label: 12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(70,209,141,.16), transparent 50%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(255,255,255,.09), transparent 55%),
+                  linear-gradient(180deg, var(--bg), #070a0f 60%);
+      letter-spacing:.02em;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; min-height:72px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:900}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(70,209,141,.9), rgba(255,255,255,.25));
+      box-shadow: var(--shadow);
+    }
+    .brand small{
+      display:block;
+      font-weight:800;
+      color:var(--muted);
+      letter-spacing:.10em;
+      font-size:var(--label);
+    }
+
+    section{padding:44px 0}
+    .sectionHead{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:16px}
+    .eyebrow{
+      font-size:var(--label);
+      letter-spacing:.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight:800;
+    }
+
+    .brandGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+    .brandCard{
+      border:1px solid var(--line);
+      background: rgba(17,26,38,.55);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+    .brandCard:hover{transform: translateY(-1px); background: rgba(255,255,255,.06)}
+    .brandCard:focus-visible{outline: 2px solid rgba(70,209,141,.55); outline-offset: 3px}
+    .brandCard .imgWrap{aspect-ratio: 4 / 3; background: rgba(255,255,255,.04)}
+    .brandCard img{width:100%; height:100%; object-fit:cover}
+    .brandCard .body{padding:18px 18px 16px; display:flex; flex-direction:column; gap:12px; flex:1}
+    .brandCard .name{font-weight:950; font-size:16px; line-height:1.4}
+    .brandCard .name .en{display:block; margin-top:6px; font-size:12px; color: var(--muted); font-weight:800; letter-spacing:.06em}
+
+    footer{border-top:1px solid var(--line); padding:22px 0 36px; color: var(--muted)}
+    .footerGrid{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+
+    @media (max-width: 980px){
+      .brandGrid{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="HOME">
+          <span class="logo" aria-hidden="true"></span>
+          <span>
+            クラウドキッチン新宿店
+            <small>ORDER / DELIVERY</small>
+          </span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section id="brands" aria-label="BRANDS">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">BRANDS</div>
+          </div>
+        </div>
+
+        <div class="brandGrid">
+          <a class="brandCard" href="https://www.order.store/store/%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%26%E3%82%AF%E3%83%AA%E3%83%AB-%E3%83%9E%E3%83%88%E3%82%B9-%E6%96%B0%E5%AE%BF%E5%BA%97-healthy%26grill-mados-shinjuku/Uif6IEcdTCejalZvpRHZZg" target="_blank" rel="noopener">
+            <div class="imgWrap"><img src="assets/mados.jpeg" alt="ヘルシー&グリル マドズ 新宿店" /></div>
+            <div class="body">
+              <div class="name">ヘルシー&グリル マドズ 新宿店<span class="en">Healthy&Grill Mado's Shinjuku</span></div>
+            </div>
+          </a>
+
+          <a class="brandCard" href="https://www.order.store/store/%E3%83%81%E3%82%AD%E3%83%B3%E3%81%A8%E9%87%8E%E8%8F%9C%E3%81%A8%E7%8E%84%E7%B1%B3%E3%80%82-%E6%96%B0%E5%AE%BF%E5%BA%97/zBnMYQG9VtuGtSeLMC99Gg" target="_blank" rel="noopener">
+            <div class="imgWrap"><img src="assets/chicken-genmai.jpeg" alt="チキンと野菜と玄米。 新宿店" /></div>
+            <div class="body">
+              <div class="name">チキンと野菜と玄米。 新宿店<span class="en">Chicken, Veggies &amp; Brown Rice Shinjuku</span></div>
+            </div>
+          </a>
+
+          <a class="brandCard" href="https://www.order.store/store/%E6%9D%B1%E4%BA%AC%E3%83%81%E3%82%AD%E3%83%B3%E3%83%95%E3%82%A1%E3%82%AF%E3%83%88%E3%83%AA%E3%83%BC-%E6%96%B0%E5%AE%BF%E5%BA%97-tokyo-chicken-factory-shinjuku/Wo2uCBS7QyKLtcKQZ6lY8Q" target="_blank" rel="noopener">
+            <div class="imgWrap"><img src="assets/tokyo-chicken-factory.jpg" alt="東京チキンファクトリー 新宿店" /></div>
+            <div class="body">
+              <div class="name">東京チキンファクトリー 新宿店<span class="en">TOKYO CHICKEN FACTORY Shinjuku</span></div>
+            </div>
+          </a>
+
+          <a class="brandCard" href="https://www.order.store/store/%E3%83%8F%E3%83%A4%E3%82%B7%E3%83%A9%E3%82%A4%E3%82%B9%E3%81%AE%E3%81%8A%E5%BA%97-hayashii-%E6%96%B0%E5%AE%BF%E5%BA%97/KissL0GJUKC6WZ-bwJLL-A" target="_blank" rel="noopener">
+            <div class="imgWrap"><img src="assets/hayashii.jpeg" alt="ハヤシライスのお店 HAYASHii. 新宿店" /></div>
+            <div class="body">
+              <div class="name">ハヤシライスのお店 HAYASHii. 新宿店<span class="en">Hayashi Rice Kitchen Shinjuku</span></div>
+            </div>
+          </a>
+
+          <a class="brandCard" href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">
+            <div class="imgWrap"><img src="assets/steww-co.jpeg" alt="クリームシチューのお店 steww&co. 新宿店" /></div>
+            <div class="body">
+              <div class="name">クリームシチューのお店 steww&co. 新宿店<span class="en">Cream Stew Shop steww&amp;co. Shinjuku</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footerGrid">
+        <div>© <span id="year"></span> クラウドキッチン新宿店</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
