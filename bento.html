@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新宿のお弁当屋さん | Shinjuku Bento — デリバリー専門クラウドキッチン</title>
+<meta name="description" content="新宿のクラウドキッチンから、4つの専門店のお弁当をデリバリーでお届け。食べたい気分のお店を選んで、そのまま注文へ。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
+<style>
+@property --badge-spin {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+:root{
+  --cream:      oklch(96.5% 0.022 88);
+  --cream-deep: oklch(93.5% 0.035 85);
+  --paper:      oklch(98.2% 0.012 90);
+  --ink:        oklch(31% 0.045 48);
+  --ink-soft:   oklch(42% 0.045 48);
+  --terra:      oklch(62% 0.135 40);
+  --terra-deep: oklch(50% 0.125 38);
+  --matcha:     oklch(58% 0.085 138);
+  --matcha-deep:oklch(44% 0.08 140);
+  --matcha-mist:oklch(92% 0.04 135);
+  --yolk:       oklch(84% 0.145 88);
+  --yolk-deep:  oklch(75% 0.15 80);
+  --nori:       oklch(28% 0.03 140);
+  --line: 3px;
+  --r-box: 28px;
+  --r-tile: 20px;
+  --shadow-soft: 0 10px 30px -12px oklch(45% 0.06 55 / .35);
+  font-family: "Zen Maru Gothic","Rounded Mplus 1c","Hiragino Maru Gothic ProN",sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:
+    radial-gradient(1100px 500px at 85% -5%, color-mix(in oklch, var(--yolk) 26%, transparent), transparent 70%),
+    radial-gradient(900px 600px at -10% 30%, color-mix(in oklch, var(--matcha) 12%, transparent), transparent 70%),
+    var(--cream);
+  color: var(--ink);
+  font-feature-settings: "palt";
+  letter-spacing: .02em;
+  line-height: 1.85;
+  overflow-x: clip;
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  opacity:.055; mix-blend-mode:multiply;
+}
+::selection{ background: color-mix(in oklch, var(--yolk) 70%, white); color: var(--ink); }
+a{ color:inherit; }
+:focus-visible{ outline:3px dashed var(--terra); outline-offset:4px; border-radius:6px; }
+img{ max-width:100%; display:block; }
+
+.wrap{ width:min(1160px, 100% - clamp(28px, 5vw, 64px)); margin-inline:auto; }
+
+/* ---------- header ---------- */
+.site-head{
+  position:sticky; top:0; z-index:50;
+  background: color-mix(in oklch, var(--cream) 78%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: var(--line) solid var(--ink);
+}
+.site-head .wrap{
+  display:flex; align-items:center; gap:14px;
+  padding-block: 12px;
+}
+.logo{
+  display:flex; align-items:center; gap:11px;
+  text-decoration:none; font-weight:900;
+}
+.logo svg{ width:40px; height:40px; flex:none; }
+.logo .name{ font-size: clamp(1rem, .9rem + .6vw, 1.2rem); line-height:1.3; letter-spacing:.04em; }
+.logo .en{
+  display:block; font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size:.62rem; font-weight:800; letter-spacing:.32em; color:var(--terra-deep); text-transform:uppercase;
+}
+.head-chip{
+  margin-left:auto;
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size:.68rem; font-weight:800; letter-spacing:.18em;
+  background:var(--ink); color:var(--paper);
+  padding:.45em 1.1em; border-radius:999px; white-space:nowrap;
+}
+.head-cta{
+  font-weight:900; font-size:.85rem; text-decoration:none; white-space:nowrap;
+  background:var(--yolk);
+  border: var(--line) solid var(--ink);
+  border-radius:999px;
+  padding:.5em 1.3em;
+  box-shadow: 0 4px 0 var(--ink);
+  transition: translate .12s ease, box-shadow .12s ease;
+}
+.head-cta:hover{ translate:0 -2px; box-shadow: 0 6px 0 var(--ink); }
+.head-cta:active{ translate:0 3px; box-shadow: 0 1px 0 var(--ink); }
+@media (max-width:560px){ .head-chip{ display:none; } }
+
+/* ---------- bento box frame ---------- */
+.bento-box{
+  border: var(--line) solid var(--ink);
+  border-radius: var(--r-box);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft), inset 0 0 0 8px var(--cream);
+  padding: clamp(14px, 2.2vw, 22px);
+}
+
+/* ---------- hero ---------- */
+.hero{ padding-block: clamp(28px, 5vw, 60px) clamp(20px, 3.5vw, 44px); }
+.hero .bento-box{ position:relative; }
+.hero-grid{
+  display:grid; gap: clamp(10px, 1.4vw, 16px);
+  grid-template-columns: 1.15fr 1fr 1fr .92fr;
+  grid-template-areas:
+    "main main main oni"
+    "main main main tate"
+    "steam wave wave tate";
+}
+.tile{
+  border: var(--line) solid var(--ink);
+  border-radius: var(--r-tile);
+  position:relative;
+  overflow:hidden;
+}
+.t-main{
+  grid-area:main;
+  background:var(--paper);
+  padding: clamp(22px, 3.4vw, 46px);
+  display:flex; flex-direction:column; justify-content:center; gap: clamp(14px, 1.6vw, 20px);
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.7em; width:fit-content;
+  font-size: clamp(.72rem, .66rem + .3vw, .84rem);
+  word-break:keep-all; line-height:1.7;
+  font-weight:700; letter-spacing:.14em; color:var(--matcha-deep);
+  background:var(--matcha-mist);
+  border:2px dashed color-mix(in oklch, var(--matcha) 65%, var(--ink));
+  border-radius:999px; padding:.4em 1.2em;
+}
+.eyebrow svg{ width:1.05em; height:1.05em; }
+h1{
+  font-size: clamp(1.9rem, 1.15rem + 3.6vw, 3.55rem);
+  font-weight:900; line-height:1.32; letter-spacing:.03em;
+  text-wrap:balance;
+}
+h1 .accent{
+  color:var(--terra-deep);
+  background:linear-gradient(transparent 68%, color-mix(in oklch, var(--yolk) 75%, transparent) 68%);
+  border-radius:4px; padding-inline:.06em;
+}
+.nw{ display:inline-block; }
+.hero-lead{
+  font-size: clamp(.92rem, .86rem + .35vw, 1.06rem);
+  color:var(--ink-soft); font-weight:500;
+  max-width:34em; text-wrap:pretty;
+}
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:4px; }
+.btn-puni{
+  display:inline-flex; align-items:center; gap:.6em;
+  font-family:inherit; font-weight:900; text-decoration:none; cursor:pointer;
+  font-size: clamp(.95rem, .9rem + .3vw, 1.1rem);
+  background: color-mix(in oklch, var(--terra) 25%, var(--terra-deep));
+  color: var(--paper);
+  border: var(--line) solid var(--ink);
+  border-radius:999px;
+  padding: .8em 1.9em;
+  box-shadow: 0 6px 0 var(--ink);
+  transition: translate .14s cubic-bezier(.34,1.56,.64,1), box-shadow .14s ease, background .2s ease;
+}
+.btn-puni:hover{ translate:0 -3px; box-shadow:0 9px 0 var(--ink); background: color-mix(in oklch, var(--terra) 40%, var(--terra-deep)); }
+.btn-puni:active{ translate:0 4px; box-shadow:0 1px 0 var(--ink); }
+.btn-puni svg{ width:1.1em; height:1.1em; }
+.btn-ghost{
+  background:var(--paper); color:var(--ink);
+}
+.btn-ghost:hover{ background: var(--cream-deep); }
+
+.t-oni{
+  grid-area:oni;
+  background:
+    radial-gradient(circle, oklch(100% 0 0 / .4) 2.2px, transparent 3px) 0 0 / 24px 24px,
+    var(--yolk);
+  display:grid; place-items:center; padding:18px; min-height:150px;
+}
+.t-oni svg{ width:min(72%, 150px); height:auto; }
+.t-tate{
+  grid-area:tate;
+  background:
+    radial-gradient(circle, oklch(100% 0 0 / .16) 2.2px, transparent 3px) 12px 12px / 24px 24px,
+    color-mix(in oklch, var(--matcha) 50%, var(--matcha-deep));
+  display:grid; place-items:center; padding:20px 12px; min-height:180px;
+}
+.t-tate p{
+  writing-mode:vertical-rl; font-weight:900; color:var(--paper);
+  font-size:clamp(1.05rem, .95rem + .5vw, 1.35rem);
+  letter-spacing:.3em; line-height:1.9; text-orientation:mixed;
+  word-break:keep-all;
+}
+.t-steam{
+  grid-area:steam; background:var(--terra);
+  display:grid; place-items:center; padding:16px; min-height:96px;
+}
+.t-steam svg{ width:min(58%, 86px); height:auto; }
+.t-wave{
+  grid-area:wave; background:var(--paper);
+  display:flex; flex-direction:column; justify-content:center; gap:6px; padding:14px 22px;
+}
+.t-wave svg{ width:100%; height:14px; color:var(--terra); }
+.t-wave p{
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size:.66rem; font-weight:800; letter-spacing:.42em; color:var(--ink-soft);
+  white-space:nowrap; overflow:hidden;
+}
+.hero-badge{
+  position:absolute; z-index:5; right:-14px; top:-22px;
+  width:clamp(84px, 9vw, 116px); aspect-ratio:1; border-radius:50%;
+  display:grid; place-items:center;
+  background:
+    conic-gradient(from var(--badge-spin),
+      var(--yolk) 0 20deg, var(--paper) 20deg 40deg,
+      var(--yolk) 40deg 60deg, var(--paper) 60deg 80deg,
+      var(--yolk) 80deg 100deg, var(--paper) 100deg 120deg,
+      var(--yolk) 120deg 140deg, var(--paper) 140deg 160deg,
+      var(--yolk) 160deg 180deg, var(--paper) 180deg 200deg,
+      var(--yolk) 200deg 220deg, var(--paper) 220deg 240deg,
+      var(--yolk) 240deg 260deg, var(--paper) 260deg 280deg,
+      var(--yolk) 280deg 300deg, var(--paper) 300deg 320deg,
+      var(--yolk) 320deg 340deg, var(--paper) 340deg 360deg);
+  border: var(--line) solid var(--ink);
+  box-shadow: var(--shadow-soft);
+  animation: badge-rot 26s linear infinite;
+  rotate: 8deg;
+}
+.hero-badge span{
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%;
+  width:72%; aspect-ratio:1; display:grid; place-items:center; text-align:center;
+  font-size:clamp(.6rem, .55rem + .2vw, .72rem); font-weight:900; line-height:1.5; letter-spacing:.06em;
+}
+@keyframes badge-rot{ to{ --badge-spin: 360deg; } }
+
+@media (max-width: 900px){
+  .hero-grid{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "main main"
+      "oni tate"
+      "steam wave";
+  }
+  .t-tate p{ letter-spacing:.22em; }
+}
+@media (max-width: 560px){
+  .hero-grid{
+    grid-template-columns: 1.1fr .9fr;
+    grid-template-areas:
+      "main main"
+      "oni tate"
+      "wave wave";
+  }
+  .t-steam{ display:none; }
+  .t-oni{ min-height:132px; }
+  .t-tate{ min-height:132px; }
+  .hero-badge{ display:none; }
+  .t-wave{ padding-block:16px; }
+  .t-wave p{ font-size:.6rem; letter-spacing:.26em; white-space:normal; line-height:2; }
+}
+
+/* ---------- section heads ---------- */
+.sec-head{ display:flex; flex-direction:column; gap:6px; margin-bottom: clamp(22px, 3vw, 34px); }
+.sec-head .en{
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-weight:800; font-size:.72rem; letter-spacing:.4em; color:var(--terra-deep); text-transform:uppercase;
+  display:flex; align-items:center; gap:14px;
+}
+.sec-head .en::after{ content:""; height:2px; width:56px; background:var(--terra); border-radius:2px; }
+.sec-head h2{
+  font-size: clamp(1.5rem, 1.15rem + 1.8vw, 2.35rem);
+  font-weight:900; letter-spacing:.04em; line-height:1.4; text-wrap:balance;
+  word-break:keep-all;
+}
+.sec-head .note{ color:var(--ink-soft); font-size:.9rem; font-weight:500; }
+
+/* ---------- brands ---------- */
+.brands{ padding-block: clamp(36px, 5vw, 72px); }
+.brand-grid{
+  display:grid; gap: clamp(14px, 2vw, 24px);
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 760px){ .brand-grid{ grid-template-columns: 1fr; } }
+.brand-card{
+  display:flex; flex-direction:column;
+  text-decoration:none;
+  border: var(--line) solid var(--ink);
+  border-radius: calc(var(--r-tile) + 4px);
+  background:var(--paper);
+  overflow:hidden;
+  box-shadow: 0 6px 0 color-mix(in oklch, var(--ink) 80%, transparent);
+  transition: box-shadow .2s ease;
+  transform-origin: 50% 90%;
+}
+.brand-grid:has(.brand-card:hover) .brand-card:not(:hover){ filter:saturate(.75) opacity(.82); }
+.brand-card:hover{
+  animation: koton .5s cubic-bezier(.36,.07,.19,.97) both;
+  box-shadow: 0 12px 0 color-mix(in oklch, var(--ink) 80%, transparent), var(--shadow-soft);
+}
+@keyframes koton{
+  0%{ transform: translateY(0) rotate(0); }
+  30%{ transform: translateY(-9px) rotate(-1.1deg); }
+  55%{ transform: translateY(-6px) rotate(.9deg); }
+  75%{ transform: translateY(-7px) rotate(-.4deg); }
+  100%{ transform: translateY(-7px) rotate(0); }
+}
+.brand-media{
+  position:relative; border-bottom: var(--line) solid var(--ink);
+  background:var(--cream-deep);
+}
+.brand-media img{
+  width:100%; height:auto; aspect-ratio: 4 / 3; object-fit:cover;
+  transition: scale .5s ease;
+}
+.brand-card:hover .brand-media img{ scale:1.04; }
+.brand-no{
+  position:absolute; left:14px; top:14px;
+  width:44px; aspect-ratio:1; border-radius:50%;
+  display:grid; place-items:center;
+  background:var(--paper); border:2px solid var(--ink);
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-weight:800; font-size:1rem;
+  box-shadow:0 3px 0 var(--ink);
+}
+.brand-tag{
+  position:absolute; right:12px; bottom:12px;
+  font-size:.68rem; font-weight:700; letter-spacing:.1em;
+  color:var(--paper);
+  background: color-mix(in oklch, var(--ink) 82%, transparent);
+  backdrop-filter: blur(4px);
+  padding:.35em 1em; border-radius:999px;
+}
+.brand-body{
+  display:flex; flex-direction:column; gap:8px;
+  padding: clamp(18px, 2.4vw, 26px);
+  flex:1;
+}
+.brand-en{
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size:.68rem; font-weight:800; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--matcha-deep);
+}
+.brand-card:nth-child(1) .brand-en{ color:var(--matcha-deep); }
+.brand-card:nth-child(2) .brand-en{ color:var(--terra-deep); }
+.brand-card:nth-child(3) .brand-en{ color:oklch(52% 0.13 30); }
+.brand-card:nth-child(4) .brand-en{ color:oklch(50% 0.09 70); }
+.brand-jp{
+  font-size: clamp(1.18rem, 1.05rem + .6vw, 1.45rem);
+  font-weight:900; line-height:1.45; letter-spacing:.02em;
+}
+.brand-copy{ color:var(--ink-soft); font-size:.9rem; font-weight:500; flex:1; }
+.brand-order{
+  margin-top:12px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  font-weight:900; font-size:.95rem;
+  border-top:2px dashed color-mix(in oklch, var(--ink) 35%, transparent);
+  padding-top:14px;
+}
+.brand-order .go{
+  display:inline-grid; place-items:center;
+  width:40px; aspect-ratio:1; border-radius:50%;
+  background:var(--yolk); border:2px solid var(--ink);
+  box-shadow:0 3px 0 var(--ink);
+  transition: translate .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease, background .2s ease;
+}
+.brand-order .go svg{ width:16px; height:16px; }
+.brand-card:hover .brand-order .go{ translate:4px -2px; box-shadow:0 5px 0 var(--ink); background: color-mix(in oklch, var(--yolk) 70%, var(--terra)); }
+
+/* ---------- kitchen / concept ---------- */
+.kitchen{ padding-block: clamp(20px, 3vw, 44px) clamp(44px, 6vw, 84px); }
+.kitchen-box{
+  background: var(--cream-deep);
+  box-shadow: var(--shadow-soft), inset 0 0 0 8px color-mix(in oklch, var(--paper) 65%, transparent);
+}
+.kitchen-grid{
+  display:grid; gap: clamp(10px, 1.4vw, 16px);
+  grid-template-columns: 1.35fr 1fr 1fr;
+  grid-template-areas:
+    "lead one two"
+    "lead three three";
+}
+@media (max-width: 900px){
+  .kitchen-grid{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "lead lead"
+      "one two"
+      "three three";
+  }
+}
+@media (max-width: 560px){
+  .kitchen-grid{
+    grid-template-columns: 1fr;
+    grid-template-areas: "lead" "one" "two" "three";
+  }
+}
+.k-lead{ grid-area:lead; background:var(--paper); padding:clamp(22px,3vw,38px); display:flex; flex-direction:column; gap:14px; justify-content:center; }
+.k-lead h2{
+  font-size: clamp(1.4rem, 1.1rem + 1.5vw, 2.05rem);
+  font-weight:900; line-height:1.5; letter-spacing:.03em; text-wrap:balance;
+}
+.k-lead h2 em{ font-style:normal; color:var(--terra-deep); }
+.k-lead p{ color:var(--ink-soft); font-size:.92rem; font-weight:500; text-wrap:pretty; }
+.k-lead .hashi{ width:120px; color:var(--terra); }
+.k-item{
+  padding: clamp(20px, 2.4vw, 28px);
+  display:flex; flex-direction:column; gap:10px;
+}
+.k-item .icon{
+  width:52px; aspect-ratio:1; border-radius:16px;
+  display:grid; place-items:center;
+  background:var(--paper); border:2px solid var(--ink);
+  box-shadow:0 3px 0 var(--ink);
+}
+.k-item .icon svg{ width:30px; height:30px; }
+.k-item h3{ font-size:1.05rem; font-weight:900; letter-spacing:.03em; }
+.k-item p{ font-size:.86rem; font-weight:500; line-height:1.9; }
+.k-one{ grid-area:one; background:var(--matcha-mist); }
+.k-one h3{ color:var(--matcha-deep); }
+.k-two{ grid-area:two; background: color-mix(in oklch, var(--yolk) 42%, var(--paper)); }
+.k-two h3{ color:oklch(48% 0.11 70); }
+.k-three{
+  grid-area:three; color:var(--paper);
+  background: color-mix(in oklch, var(--terra) 30%, var(--terra-deep));
+  flex-direction:row; align-items:center; gap:clamp(16px,2.4vw,28px); flex-wrap:wrap;
+}
+.k-three .icon{ background:color-mix(in oklch, var(--paper) 92%, var(--terra)); flex:none; }
+.k-three div{ flex:1; min-width:220px; }
+.k-three h3{ color:var(--paper); }
+.k-three p{ color: color-mix(in oklch, var(--paper) 94%, var(--terra)); }
+
+/* ---------- footer ---------- */
+.site-foot{
+  border-top: var(--line) solid var(--ink);
+  background: var(--nori);
+  color: oklch(90% 0.02 120);
+  padding-block: clamp(36px, 5vw, 60px) clamp(24px, 3vw, 36px);
+}
+.foot-grid{
+  display:grid; gap:clamp(24px,4vw,48px);
+  grid-template-columns: 1.2fr 1fr;
+  align-items:start;
+}
+@media (max-width:700px){ .foot-grid{ grid-template-columns:1fr; } }
+.foot-brand{ display:flex; flex-direction:column; gap:12px; }
+.foot-brand .logo{ color:oklch(96% 0.01 120); }
+.foot-brand .logo .en{ color: var(--yolk); }
+.foot-brand p{ font-size:.85rem; font-weight:500; color:oklch(78% 0.025 120); max-width:36em; text-wrap:pretty; }
+.foot-links h3{
+  font-family:"M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size:.68rem; font-weight:800; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--yolk); margin-bottom:14px;
+}
+.foot-links ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+.foot-links a{
+  text-decoration:none; font-weight:700; font-size:.92rem;
+  display:inline-flex; align-items:center; gap:.6em;
+  color:oklch(92% 0.015 120);
+  transition: color .15s ease, gap .2s ease;
+}
+.foot-links a::before{
+  content:""; width:8px; height:8px; border-radius:50%;
+  background:var(--terra); flex:none;
+}
+.foot-links a:hover{ color:var(--yolk); gap:.9em; }
+.foot-bottom{
+  margin-top:clamp(28px,4vw,44px); padding-top:20px;
+  border-top:1px dashed oklch(50% 0.02 120);
+  display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:space-between;
+  font-size:.75rem; color:oklch(68% 0.02 120); font-weight:500;
+}
+
+/* ---------- wave divider ---------- */
+.divider{ display:block; width:100%; height:clamp(20px,3vw,32px); color:var(--ink); margin-block: -2px; }
+
+/* ---------- reveal ---------- */
+.rv{ opacity:0; translate:0 26px; transition: opacity .7s ease, translate .7s cubic-bezier(.22,1,.36,1); }
+.rv.in{ opacity:1; translate:0 0; }
+.rv:nth-child(2){ transition-delay:.08s; } .rv:nth-child(3){ transition-delay:.16s; } .rv:nth-child(4){ transition-delay:.24s; }
+
+/* ---------- steam sway ---------- */
+.sway path{ animation: sway 3.2s ease-in-out infinite; transform-origin:50% 100%; }
+.sway path:nth-child(2){ animation-delay:.5s; } .sway path:nth-child(3){ animation-delay:1s; }
+@keyframes sway{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+  .rv{ opacity:1; translate:0 0; }
+  .brand-card:hover{ transform:translateY(-4px); }
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="新宿のお弁当屋さん トップへ">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="4" y="6" width="40" height="36" rx="10" fill="var(--yolk)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M4 24h40" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M24 24v18" stroke="var(--ink)" stroke-width="3"/>
+        <circle cx="14" cy="15" r="4" fill="var(--terra)" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M31 12l4 6h-8l4-6z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M11 32c2-2 5-2 7 0" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M30 32c2-2 5-2 7 0" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <span class="name">新宿のお弁当屋さん<span class="en">Shinjuku Bento</span></span>
+    </a>
+    <span class="head-chip">DELIVERY ONLY</span>
+    <a class="head-cta" href="#brands">注文する</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="メインビジュアル">
+    <div class="wrap">
+      <div class="bento-box">
+        <div class="hero-grid">
+          <div class="tile t-main">
+            <p class="eyebrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 20c-1.5-3 .5-4.5 0-7s-2-3.5 0-6"/><path d="M12 20c-1.5-3 .5-4.5 0-7s-2-3.5 0-6"/><path d="M17 20c-1.5-3 .5-4.5 0-7s-2-3.5 0-6"/></svg>
+              新宿クラウドキッチン発・デリバリー専門
+            </p>
+            <h1>お店ごと選べる、<br><span class="accent"><span class="nw">よくばり</span><span class="nw">お弁当びより。</span></span></h1>
+            <p class="hero-lead">4つの専門店を、ひとつのキッチンから。食べたい気分のお店をぽちっと選んだら、そのまま各ブランドの注文ページへ。今日のごはん、どれにする？</p>
+            <div class="hero-ctas">
+              <a class="btn-puni" href="#brands">
+                お弁当をえらぶ
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+              </a>
+              <a class="btn-puni btn-ghost" href="#kitchen">キッチンのこと</a>
+            </div>
+          </div>
+          <div class="tile t-oni" aria-hidden="true">
+            <svg viewBox="0 0 120 110" fill="none">
+              <path d="M60 12C41 12 20 44 15 66c-4 17 6 28 22 30 15 2 31 2 46 0 16-2 26-13 22-30C100 44 79 12 60 12z" fill="var(--paper)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
+              <rect x="42" y="64" width="36" height="32" rx="6" fill="var(--nori)" stroke="var(--ink)" stroke-width="3.6"/>
+              <circle cx="47" cy="46" r="3.4" fill="var(--ink)"/>
+              <circle cx="73" cy="46" r="3.4" fill="var(--ink)"/>
+              <path d="M54 54c3 3.4 9 3.4 12 0" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round"/>
+              <path d="M33 50c1.6-1.8 4.4-1.8 6 0" stroke="var(--terra)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M81 50c1.6-1.8 4.4-1.8 6 0" stroke="var(--terra)" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tile t-tate">
+            <p>できたてを、まっすぐ。</p>
+          </div>
+          <div class="tile t-steam" aria-hidden="true">
+            <svg class="sway" viewBox="0 0 80 60" fill="none" stroke="var(--paper)" stroke-width="5" stroke-linecap="round">
+              <path d="M18 52c-4-8 3-12 0-20s-5-9 0-16"/>
+              <path d="M40 54c-4-8 3-12 0-20s-5-9 0-18"/>
+              <path d="M62 52c-4-8 3-12 0-20s-5-9 0-16"/>
+            </svg>
+          </div>
+          <div class="tile t-wave">
+            <svg viewBox="0 0 400 14" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2 7c12-8 21 8 33 0s21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 33 0 21 8 31 0"/>
+            </svg>
+            <p>SHINJUKU CLOUD KITCHEN — 4 BRANDS, 1 KITCHEN</p>
+          </div>
+        </div>
+        <div class="hero-badge" aria-hidden="true"><span>できたて<br>直行便</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brands" id="brands" aria-labelledby="brands-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="en">Our 4 Brands</span>
+        <h2 id="brands-title">本日のお品書き — 4つの専門店</h2>
+        <p class="note">カードを押すと、それぞれのブランドの注文ページが新しいタブで開きます。</p>
+      </div>
+      <div class="brand-grid">
+        <a class="brand-card rv" href="https://www.order.store/store/%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%26%E3%82%AF%E3%83%AA%E3%83%AB-%E3%83%9E%E3%83%88%E3%82%B9-%E6%96%B0%E5%AE%BF%E5%BA%97-healthy%26grill-mados-shinjuku/Uif6IEcdTCejalZvpRHZZg" target="_blank" rel="noopener">
+          <span class="brand-media">
+            <img src="assets/mados.jpeg" alt="ヘルシー&グリル マドズのグリル弁当" width="2048" height="1638" loading="eager" decoding="async">
+            <span class="brand-no" aria-hidden="true">01</span>
+            <span class="brand-tag">グリル & ヘルシー</span>
+          </span>
+          <span class="brand-body">
+            <span class="brand-en">Healthy &amp; Grill Mado's</span>
+            <span class="brand-jp">ヘルシー&グリル マドズ</span>
+            <span class="brand-copy">香ばしグリルで、からだよろこぶ。しっかり食べて、ちゃんと整う一箱。</span>
+            <span class="brand-order">注文ページへ
+              <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="brand-card rv" href="https://www.order.store/store/%E3%83%81%E3%82%AD%E3%83%B3%E3%81%A8%E9%87%8E%E8%8F%9C%E3%81%A8%E7%8E%84%E7%B1%B3%E3%80%82-%E6%96%B0%E5%AE%BF%E5%BA%97/zBnMYQG9VtuGtSeLMC99Gg" target="_blank" rel="noopener">
+          <span class="brand-media">
+            <img src="assets/chicken-genmai.jpeg" alt="チキンと野菜と玄米。のお弁当" width="640" height="512" loading="lazy" decoding="async">
+            <span class="brand-no" aria-hidden="true">02</span>
+            <span class="brand-tag">チキン & 玄米</span>
+          </span>
+          <span class="brand-body">
+            <span class="brand-en">Chicken, Veggies &amp; Brown Rice</span>
+            <span class="brand-jp">チキンと野菜と玄米。</span>
+            <span class="brand-copy">名前のまんま、まっすぐごはん。迷ったらこれ、な安心の定番。</span>
+            <span class="brand-order">注文ページへ
+              <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="brand-card rv" href="https://www.order.store/store/%E3%83%8F%E3%83%A4%E3%82%B7%E3%83%A9%E3%82%A4%E3%82%B9%E3%81%AE%E3%81%8A%E5%BA%97-hayashii-%E6%96%B0%E5%AE%BF%E5%BA%97/KissL0GJUKC6WZ-bwJLL-A" target="_blank" rel="noopener">
+          <span class="brand-media">
+            <img src="assets/hayashii.jpeg" alt="ハヤシライスのお店 HAYASHii. のハヤシライス" width="2048" height="1638" loading="lazy" decoding="async">
+            <span class="brand-no" aria-hidden="true">03</span>
+            <span class="brand-tag">ハヤシライス</span>
+          </span>
+          <span class="brand-body">
+            <span class="brand-en">Hayashi Rice Kitchen</span>
+            <span class="brand-jp">ハヤシライスのお店 HAYASHii.</span>
+            <span class="brand-copy">コトコト煮込んだ、ごほうびルウ。スプーンが止まらないやつです。</span>
+            <span class="brand-order">注文ページへ
+              <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="brand-card rv" href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">
+          <span class="brand-media">
+            <img src="assets/steww-co.jpeg" alt="クリームシチューのお店 steww&co. のクリームシチュー" width="2048" height="1638" loading="lazy" decoding="async">
+            <span class="brand-no" aria-hidden="true">04</span>
+            <span class="brand-tag">クリームシチュー</span>
+          </span>
+          <span class="brand-body">
+            <span class="brand-en">Cream Stew Shop steww&amp;co.</span>
+            <span class="brand-jp">クリームシチューのお店 steww&amp;co.</span>
+            <span class="brand-copy">ほっとひと息、白いごちそう。つかれた日の、やさしい味方。</span>
+            <span class="brand-order">注文ページへ
+              <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="kitchen" id="kitchen" aria-labelledby="kitchen-title">
+    <div class="wrap">
+      <div class="bento-box kitchen-box rv">
+        <div class="kitchen-grid">
+          <div class="tile k-lead">
+            <svg class="hashi" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 8c36-3 76-4 112-2"/>
+              <path d="M4 18c36 1 76 0 112-4"/>
+            </svg>
+            <h2 id="kitchen-title">ひとつのキッチンに、<br><em>よっつののれん。</em></h2>
+            <p>「新宿のお弁当屋さん」は、店舗を持たないクラウドキッチン。おかずを詰め合わせるように、専門ブランドをぎゅっとひと箱に集めました。気分に合わせて、のれんをくぐる感覚でお店を選んでください。</p>
+          </div>
+          <div class="tile k-item k-one">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="var(--matcha-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 14h22l-2.5 12a3 3 0 0 1-3 2.4h-11a3 3 0 0 1-3-2.4L5 14z"/>
+                <path d="M11 14c0-6 2.2-9 5-9s5 3 5 9"/>
+              </svg>
+            </span>
+            <h3>デリバリー専門</h3>
+            <p>イートインはありません。お届けすることだけを考えて、お弁当をつくっています。</p>
+          </div>
+          <div class="tile k-item k-two">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="oklch(48% 0.11 70)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="6" width="24" height="20" rx="5"/>
+                <path d="M4 16h24M16 16v10"/>
+                <circle cx="10" cy="11" r="1.6" fill="oklch(48% 0.11 70)" stroke="none"/>
+                <circle cx="22" cy="11" r="1.6" fill="oklch(48% 0.11 70)" stroke="none"/>
+              </svg>
+            </span>
+            <h3>4つの専門ブランド</h3>
+            <p>グリル、チキンと玄米、ハヤシ、シチュー。それぞれ一品入魂のバーチャルブランドです。</p>
+          </div>
+          <div class="tile k-item k-three">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="var(--terra-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 15l10-8 10 8"/>
+                <path d="M9 13v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V13"/>
+                <path d="M13 25v-6h6v6"/>
+              </svg>
+            </span>
+            <div>
+              <h3>新宿のまちのキッチンから</h3>
+              <p>看板のないちいさなキッチンで、今日もごはんを炊いています。カードの先の注文ページから、いつでもどうぞ。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<svg class="divider" viewBox="0 0 1440 36" fill="none" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 30C60 10 120 10 180 22s120 16 180 4 120-24 180-14 120 26 180 16 120-26 180-18 120 22 180 14 120-22 180-10 120 20 180 6v-20H0z" fill="var(--nori)" transform="scale(1,-1) translate(0,-36)"/>
+</svg>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#" aria-label="新宿のお弁当屋さん トップへ">
+          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <rect x="4" y="6" width="40" height="36" rx="10" fill="var(--yolk)" stroke="var(--nori)" stroke-width="3"/>
+            <path d="M4 24h40" stroke="var(--nori)" stroke-width="3"/>
+            <path d="M24 24v18" stroke="var(--nori)" stroke-width="3"/>
+            <circle cx="14" cy="15" r="4" fill="var(--terra)" stroke="var(--nori)" stroke-width="2.4"/>
+            <path d="M31 12l4 6h-8l4-6z" fill="var(--paper)" stroke="var(--nori)" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M11 32c2-2 5-2 7 0" stroke="var(--nori)" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M30 32c2-2 5-2 7 0" stroke="var(--nori)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <span class="name">新宿のお弁当屋さん<span class="en">Shinjuku Bento</span></span>
+        </a>
+        <p>新宿のクラウドキッチンから、4つのバーチャルブランドのお弁当をデリバリー専門でお届けしています。ご注文は各ブランドの注文ページからお願いします。</p>
+      </div>
+      <nav class="foot-links" aria-label="ブランド注文リンク">
+        <h3>Order / Delivery</h3>
+        <ul>
+          <li><a href="https://www.order.store/store/%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%26%E3%82%AF%E3%83%AA%E3%83%AB-%E3%83%9E%E3%83%88%E3%82%B9-%E6%96%B0%E5%AE%BF%E5%BA%97-healthy%26grill-mados-shinjuku/Uif6IEcdTCejalZvpRHZZg" target="_blank" rel="noopener">ヘルシー&グリル マドズ</a></li>
+          <li><a href="https://www.order.store/store/%E3%83%81%E3%82%AD%E3%83%B3%E3%81%A8%E9%87%8E%E8%8F%9C%E3%81%A8%E7%8E%84%E7%B1%B3%E3%80%82-%E6%96%B0%E5%AE%BF%E5%BA%97/zBnMYQG9VtuGtSeLMC99Gg" target="_blank" rel="noopener">チキンと野菜と玄米。</a></li>
+          <li><a href="https://www.order.store/store/%E3%83%8F%E3%83%A4%E3%82%B7%E3%83%A9%E3%82%A4%E3%82%B9%E3%81%AE%E3%81%8A%E5%BA%97-hayashii-%E6%96%B0%E5%AE%BF%E5%BA%97/KissL0GJUKC6WZ-bwJLL-A" target="_blank" rel="noopener">ハヤシライスのお店 HAYASHii.</a></li>
+          <li><a href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">クリームシチューのお店 steww&amp;co.</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© Shinjuku Bento — Cloud Kitchen, Shinjuku</span>
+      <span>DELIVERY ONLY / 4 BRANDS, 1 KITCHEN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  targets.forEach(el => io.observe(el));
+})();
+</script>
+
+<!-- design-switcher -->
+<div class="ds-switch" data-current="bento">
+  <button class="ds-toggle" type="button" aria-expanded="false" aria-controls="ds-panel" aria-haspopup="true">
+    <svg class="ds-ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.4"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.4"/></svg>
+    <span class="ds-toggle-t">デザイン</span>
+  </button>
+  <div class="ds-panel" id="ds-panel" role="menu" aria-label="デザインを切り替え" hidden>
+    <p class="ds-head">デザインを切り替え</p>
+    <div class="ds-opts"><a class="ds-opt" data-key="wamodern" href="wamodern.html" role="menuitemradio"><span class="ds-opt-l">和モダン</span><span class="ds-opt-s">Editorial</span></a><a class="ds-opt" data-key="neotokyo" href="neotokyo.html" role="menuitemradio"><span class="ds-opt-l">ネオ東京</span><span class="ds-opt-s">Midnight</span></a><a class="ds-opt" data-key="kinetic" href="kinetic.html" role="menuitemradio"><span class="ds-opt-l">キネティック</span><span class="ds-opt-s">Kinetic</span></a><a class="ds-opt" data-key="bento" href="bento.html" role="menuitemradio"><span class="ds-opt-l">ベント</span><span class="ds-opt-s">Craft</span></a></div>
+  </div>
+</div>
+<style>
+.ds-switch{position:fixed;right:clamp(12px,2.4vw,22px);bottom:clamp(12px,2.4vw,22px);z-index:2147483000;font-family:ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;color:#f4f4f5;line-height:1.3;letter-spacing:.02em}
+.ds-switch *{box-sizing:border-box}
+.ds-toggle{display:inline-flex;align-items:center;gap:.5em;padding:.62em .95em;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(20,20,24,.72);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);color:#f4f4f5;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;box-shadow:0 8px 26px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);transition:transform .18s ease,border-color .2s ease,background .2s ease}
+.ds-toggle:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.32);background:rgba(30,30,36,.82)}
+.ds-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-ico{fill:currentColor;opacity:.9;flex:none}
+.ds-panel{position:absolute;right:0;bottom:calc(100% + 10px);width:230px;padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(18,18,22,.88);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);transform-origin:bottom right;animation:ds-in .22s cubic-bezier(.22,1,.36,1)}
+@keyframes ds-in{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+.ds-head{margin:2px 4px 10px;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.ds-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ds-opt{display:flex;flex-direction:column;gap:2px;padding:.7em .8em;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.04);color:#f4f4f5;text-decoration:none;transition:background .16s ease,border-color .16s ease,transform .16s ease}
+.ds-opt:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);transform:translateY(-1px)}
+.ds-opt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-opt-l{font-size:13px;font-weight:800;letter-spacing:.04em}
+.ds-opt-s{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.48)}
+.ds-opt[aria-current="true"]{background:#f4f4f5;border-color:#f4f4f5;color:#141418}
+.ds-opt[aria-current="true"] .ds-opt-s{color:rgba(20,20,24,.55)}
+.ds-switch[data-open="true"] .ds-toggle{border-color:rgba(255,255,255,.34);background:rgba(30,30,36,.82)}
+@media (max-width:420px){.ds-toggle-t{display:none}.ds-panel{width:200px}}
+@media (prefers-reduced-motion:reduce){.ds-toggle,.ds-opt{transition:none}.ds-panel{animation:none}}
+@media print{.ds-switch{display:none}}
+</style>
+<script>
+(() => {
+  const KEY = 'shinjuku-design';
+  const root = document.querySelector('.ds-switch');
+  if (!root) return;
+  const current = root.getAttribute('data-current');
+  try { localStorage.setItem(KEY, current); } catch (e) {}
+  const toggle = root.querySelector('.ds-toggle');
+  const panel = root.querySelector('.ds-panel');
+  root.querySelectorAll('.ds-opt').forEach(o => {
+    const isCur = o.getAttribute('data-key') === current;
+    o.setAttribute('aria-current', isCur ? 'true' : 'false');
+    o.setAttribute('aria-checked', isCur ? 'true' : 'false');
+    o.addEventListener('click', () => { try { localStorage.setItem(KEY, o.getAttribute('data-key')); } catch (e) {} });
+  });
+  const open = () => { panel.hidden = false; toggle.setAttribute('aria-expanded', 'true'); root.setAttribute('data-open', 'true'); };
+  const close = () => { panel.hidden = true; toggle.setAttribute('aria-expanded', 'false'); root.removeAttribute('data-open'); };
+  toggle.addEventListener('click', e => { e.stopPropagation(); panel.hidden ? open() : close(); });
+  document.addEventListener('click', e => { if (!root.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { close(); toggle.focus(); } });
+})();
+</script>
+</body>
+</html>

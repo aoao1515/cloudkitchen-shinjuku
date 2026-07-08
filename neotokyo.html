@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新宿のお弁当屋さん | Shinjuku Bento — Midnight Delivery</title>
+<meta name="description" content="新宿のクラウドキッチンから、4つのバーチャルブランドのできたてをデリバリーでお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+@property --aurora-a { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+@property --aurora-h { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --glow { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
+
+:root{
+  --bg-0: oklch(0.13 0.035 272);
+  --bg-1: oklch(0.16 0.045 265);
+  --ink: oklch(0.93 0.012 260);
+  --ink-dim: oklch(0.76 0.02 260);
+  --ink-faint: oklch(0.68 0.025 262);
+  --cyan: oklch(0.87 0.115 195);
+  --cyan-deep: oklch(0.72 0.13 210);
+  --magenta: oklch(0.72 0.19 345);
+  --violet: oklch(0.62 0.17 295);
+  --amber: oklch(0.84 0.13 75);
+  --line: color-mix(in oklab, var(--cyan) 16%, transparent);
+  --glass: color-mix(in oklab, oklch(0.22 0.045 268) 55%, transparent);
+  --font-jp: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-en: "Orbitron", "Zen Kaku Gothic New", sans-serif;
+  --mx: 50vw; --my: 30vh;
+  color-scheme: dark;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+html,body{ overflow-x:clip; }
+body{
+  background: var(--bg-0);
+  color: var(--ink);
+  font-family: var(--font-jp);
+  font-feature-settings: "palt" 1;
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  -webkit-font-smoothing: antialiased;
+}
+::selection{ background: color-mix(in oklab, var(--magenta) 45%, transparent); color:#fff; }
+
+a{ color: inherit; }
+:focus-visible{
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+img{ max-width:100%; display:block; }
+
+.sky{
+  position: fixed; inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  background:
+    radial-gradient(120vmax 80vmax at 78% -12%, color-mix(in oklab, var(--violet) 26%, transparent), transparent 58%),
+    radial-gradient(90vmax 70vmax at 8% 108%, color-mix(in oklab, var(--cyan-deep) 20%, transparent), transparent 55%),
+    linear-gradient(178deg, var(--bg-0), var(--bg-1) 46%, oklch(0.11 0.03 278));
+}
+.sky::before{
+  content:"";
+  position:absolute;
+  left:50%; top:38%;
+  width:150vmax; height:150vmax;
+  margin:-75vmax;
+  border-radius:50%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    color-mix(in oklab, var(--cyan) 7%, transparent) 30deg,
+    color-mix(in oklab, var(--cyan) 13%, transparent) 55deg,
+    color-mix(in oklab, var(--magenta) 11%, transparent) 120deg,
+    color-mix(in oklab, var(--magenta) 4%, transparent) 160deg,
+    transparent 195deg,
+    color-mix(in oklab, var(--violet) 8%, transparent) 240deg,
+    color-mix(in oklab, var(--violet) 15%, transparent) 275deg,
+    color-mix(in oklab, var(--violet) 6%, transparent) 315deg,
+    transparent 360deg);
+  -webkit-mask-image: radial-gradient(closest-side, transparent 12%, #000 34%, #000 52%, transparent 76%);
+  mask-image: radial-gradient(closest-side, transparent 12%, #000 34%, #000 52%, transparent 76%);
+  mix-blend-mode: screen;
+  animation: aurora 48s linear infinite;
+}
+.sky::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(52vmax 40vmax at 30% 22%, color-mix(in oklab, var(--magenta) 9%, transparent), transparent 62%);
+  animation: breathe 14s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+@keyframes aurora{
+  to{ transform: rotate(1turn); }
+}
+@keyframes breathe{
+  from{ opacity:.5; transform: translateY(-2%) scale(1); }
+  to{ opacity:1; transform: translateY(2%) scale(1.06); }
+}
+@keyframes border-sweep{
+  to{ --aurora-a: 360deg; }
+}
+
+#motes{
+  position: fixed; inset:0;
+  z-index:-2;
+  pointer-events:none;
+}
+.spot{
+  position: fixed; inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background: radial-gradient(38rem 38rem at var(--mx) var(--my),
+    color-mix(in oklab, var(--cyan) 7%, transparent),
+    transparent 70%);
+}
+.grain{
+  position: fixed; inset:0;
+  z-index: 60;
+  pointer-events:none;
+  opacity: .5;
+  mix-blend-mode: overlay;
+}
+
+.wrap{
+  width: min(1160px, 100% - clamp(2.4rem, 7vw, 6rem));
+  margin-inline: auto;
+}
+
+.site-head{
+  position: sticky; top:0; z-index:50;
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  background: color-mix(in oklab, var(--bg-0) 58%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.site-head .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-block: .85rem;
+  gap:1rem;
+}
+.brandmark{
+  display:flex; align-items:center; gap:.7rem;
+  text-decoration:none;
+}
+.brandmark svg{ width: 2rem; height:2rem; flex:none; }
+.brandmark .en{
+  font-family: var(--font-en);
+  font-weight:600;
+  font-size: .78rem;
+  letter-spacing: .32em;
+  color: var(--cyan);
+  text-shadow: 0 0 14px color-mix(in oklab, var(--cyan) 55%, transparent);
+}
+.brandmark .jp{
+  display:block;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  color: var(--ink-dim);
+  line-height:1.4;
+}
+.head-cta{
+  font-family: var(--font-en);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-decoration:none;
+  color: var(--ink);
+  border: 1px solid color-mix(in oklab, var(--magenta) 55%, transparent);
+  border-radius: 999px;
+  padding: .55em 1.4em .5em;
+  white-space:nowrap;
+  background: color-mix(in oklab, var(--magenta) 12%, transparent);
+  box-shadow: 0 0 18px color-mix(in oklab, var(--magenta) 22%, transparent), inset 0 0 12px color-mix(in oklab, var(--magenta) 14%, transparent);
+  transition: box-shadow .35s, background .35s;
+}
+.head-cta:hover{
+  background: color-mix(in oklab, var(--magenta) 24%, transparent);
+  box-shadow: 0 0 30px color-mix(in oklab, var(--magenta) 40%, transparent), inset 0 0 16px color-mix(in oklab, var(--magenta) 22%, transparent);
+}
+
+.hero{
+  position:relative;
+  min-height: clamp(38rem, 92svh, 56rem);
+  display:grid;
+  align-content:center;
+  padding-block: clamp(4rem, 10vh, 7rem) clamp(5rem, 12vh, 8rem);
+}
+.hero .wrap{
+  position:relative;
+  display:grid;
+  gap: 2.2rem;
+}
+.hero-kicker{
+  display:flex; align-items:center; gap:1rem;
+  font-family: var(--font-en);
+  font-size: clamp(.62rem, 1.4vw, .74rem);
+  font-weight:600;
+  letter-spacing:.42em;
+  color: var(--cyan);
+  text-shadow: 0 0 16px color-mix(in oklab, var(--cyan) 60%, transparent);
+  text-transform:uppercase;
+}
+.hero-kicker::before{
+  content:"";
+  width: clamp(2rem, 6vw, 4.5rem); height:1px;
+  background: linear-gradient(90deg, transparent, var(--cyan));
+  box-shadow: 0 0 8px var(--cyan);
+}
+.hero h1{
+  font-size: clamp(2.15rem, 6.4vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: .06em;
+  text-wrap: balance;
+  max-width: 21em;
+}
+.hero h1 .neon{
+  background: linear-gradient(94deg, var(--cyan) 8%, oklch(0.95 0.03 220) 42%, var(--magenta) 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px color-mix(in oklab, var(--cyan) 30%, transparent));
+}
+.hero-en{
+  font-family: var(--font-en);
+  font-weight:500;
+  font-size: clamp(.66rem, 1.6vw, .82rem);
+  letter-spacing: .3em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.hero-lead{
+  max-width: 34em;
+  color: var(--ink-dim);
+  font-size: clamp(.9rem, 1.9vw, 1rem);
+  text-wrap: pretty;
+}
+.hero-actions{ display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
+.btn-neon{
+  position:relative;
+  display:inline-flex; align-items:center; gap:.8em;
+  font-family: var(--font-en);
+  font-size:.78rem; font-weight:600;
+  letter-spacing:.3em;
+  text-decoration:none;
+  color: oklch(0.98 0.005 220);
+  padding: 1.05em 2.2em .95em;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--cyan) 60%, transparent);
+  background:
+    linear-gradient(120deg, color-mix(in oklab, var(--cyan-deep) 30%, transparent), color-mix(in oklab, var(--violet) 26%, transparent));
+  box-shadow:
+    0 0 24px color-mix(in oklab, var(--cyan) 25%, transparent),
+    inset 0 0 18px color-mix(in oklab, var(--cyan) 16%, transparent);
+  transition: box-shadow .4s, transform .4s;
+}
+.btn-neon:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 42px color-mix(in oklab, var(--cyan) 42%, transparent),
+    inset 0 0 24px color-mix(in oklab, var(--cyan) 24%, transparent);
+}
+.btn-neon svg{ width:1em; height:1em; }
+.hero-note{
+  font-size:.72rem;
+  letter-spacing:.14em;
+  color: var(--ink-faint);
+}
+
+.tate{
+  position:absolute;
+  top: .4rem; right: 0;
+  writing-mode: vertical-rl;
+  font-size: clamp(.62rem, 1.3vw, .72rem);
+  letter-spacing: .42em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ink-faint);
+  border-left: 1px solid var(--line);
+  padding-left: 1rem;
+  height: clamp(16rem, 44vh, 24rem);
+}
+.tate b{
+  font-weight:500;
+  color: var(--cyan);
+  text-shadow: 0 0 10px color-mix(in oklab, var(--cyan) 50%, transparent);
+}
+
+.ticker{
+  border-block: 1px solid var(--line);
+  background: color-mix(in oklab, var(--bg-0) 40%, transparent);
+  overflow:hidden;
+  padding-block: .8rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-track{
+  display:flex; gap:3.5rem;
+  width:max-content;
+  animation: ticker 30s linear infinite;
+  font-family: var(--font-en);
+  font-size:.68rem; font-weight:500;
+  letter-spacing:.38em;
+  color: var(--ink-faint);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.ticker-track span b{ font-weight:600; color: color-mix(in oklab, var(--amber) 80%, white); text-shadow:0 0 12px color-mix(in oklab, var(--amber) 45%, transparent); }
+@keyframes ticker{ to{ transform: translateX(-50%); } }
+
+section{ position:relative; }
+.sec-head{
+  display:grid; gap:.9rem;
+  margin-block-end: clamp(2.6rem, 6vw, 4rem);
+}
+.sec-eyebrow{
+  display:flex; align-items:center; gap:1rem;
+  font-family: var(--font-en);
+  font-size:.66rem; font-weight:600;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color: var(--magenta);
+  text-shadow: 0 0 14px color-mix(in oklab, var(--magenta) 45%, transparent);
+}
+.sec-eyebrow::before{
+  content:"";
+  width:2.4rem; height:1px;
+  background: linear-gradient(90deg, transparent, var(--magenta));
+}
+.sec-head h2{
+  font-size: clamp(1.5rem, 3.8vw, 2.4rem);
+  font-weight:900;
+  letter-spacing:.08em;
+  line-height:1.4;
+  text-wrap: balance;
+}
+.sec-head p{
+  color: var(--ink-dim);
+  max-width: 40em;
+  font-size: clamp(.86rem, 1.8vw, .95rem);
+  text-wrap: pretty;
+}
+
+.brands{ padding-block: clamp(4.5rem, 10vw, 7.5rem); }
+.brand-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+}
+.card{
+  position:relative;
+  display:flex; flex-direction:column;
+  text-decoration:none;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 24px 60px -24px oklch(0.05 0.02 270 / .8);
+  overflow:hidden;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .4s;
+  transform-style: preserve-3d;
+  --card-glow: var(--cyan);
+}
+.card:nth-child(2){ --card-glow: var(--amber); }
+.card:nth-child(3){ --card-glow: var(--magenta); }
+.card:nth-child(4){ --card-glow: var(--violet); }
+.card::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background: radial-gradient(24rem 18rem at var(--gx, 50%) var(--gy, -20%),
+    color-mix(in oklab, var(--card-glow) 13%, transparent), transparent 70%);
+  opacity: var(--gact, 0);
+  transition: opacity .45s;
+  pointer-events:none;
+  z-index:2;
+}
+.card:hover, .card:focus-visible{
+  border-color: color-mix(in oklab, var(--card-glow) 45%, transparent);
+  box-shadow:
+    0 30px 70px -24px oklch(0.05 0.02 270 / .9),
+    0 0 40px -6px color-mix(in oklab, var(--card-glow) 24%, transparent);
+}
+.card:hover::before{ --gact: 1; opacity:1; }
+.card-media{
+  position:relative;
+  aspect-ratio: 4 / 3;
+  overflow:hidden;
+}
+.card-media img{
+  width:100%; height:100%;
+  object-fit:cover;
+  filter: saturate(1.04) contrast(1.02) brightness(.94);
+  transform: scale(1.02);
+  transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .8s;
+}
+.card:hover .card-media img{ transform: scale(1.07); filter: saturate(1.1) contrast(1.04) brightness(1); }
+.card-media::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, oklch(0.13 0.035 272 / .28), transparent 32%, transparent 62%, oklch(0.13 0.035 272 / .82));
+}
+.card-no{
+  position:absolute; top:1rem; left:1.1rem; z-index:2;
+  font-family: var(--font-en);
+  font-size:.66rem; font-weight:600;
+  letter-spacing:.3em;
+  color: oklch(0.97 0.01 220);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--card-glow) 70%, transparent);
+  padding:.4em .95em .35em;
+  border-radius:999px;
+  border:1px solid color-mix(in oklab, var(--card-glow) 50%, transparent);
+  background: color-mix(in oklab, oklch(0.14 0.04 270) 62%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.card-body{
+  display:grid; gap:.45rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+  position:relative;
+  z-index:1;
+}
+.card-en{
+  font-family: var(--font-en);
+  font-size:.63rem; font-weight:600;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color: color-mix(in oklab, var(--card-glow) 78%, white);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--card-glow) 40%, transparent);
+}
+.card-jp{
+  font-size: clamp(1.12rem, 2.4vw, 1.3rem);
+  font-weight:700;
+  letter-spacing:.06em;
+  line-height:1.5;
+  color: var(--ink);
+}
+.card-desc{
+  font-size:.82rem;
+  color: var(--ink-dim);
+  letter-spacing:.05em;
+}
+.card-order{
+  margin-top:.8rem;
+  display:flex; align-items:center; justify-content:space-between;
+  border-top: 1px dashed color-mix(in oklab, var(--card-glow) 26%, transparent);
+  padding-top: .95rem;
+  font-family: var(--font-en);
+  font-size:.68rem; font-weight:600;
+  letter-spacing:.32em;
+  color: var(--ink);
+}
+.card-order .arr{
+  display:grid; place-items:center;
+  width:2.1rem; height:2.1rem;
+  border-radius:50%;
+  border:1px solid color-mix(in oklab, var(--card-glow) 55%, transparent);
+  color: color-mix(in oklab, var(--card-glow) 85%, white);
+  background: color-mix(in oklab, var(--card-glow) 10%, transparent);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--card-glow) 25%, transparent);
+  transition: transform .4s, box-shadow .4s;
+}
+.card-order .arr svg{ width:.9rem; height:.9rem; }
+.card:hover .card-order .arr{
+  transform: translateX(4px);
+  box-shadow: 0 0 24px color-mix(in oklab, var(--card-glow) 45%, transparent);
+}
+
+.kitchen{ padding-block: clamp(4.5rem, 10vw, 7.5rem); }
+.kitchen-panel{
+  position:relative;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  padding: clamp(2.2rem, 5.5vw, 4rem);
+  overflow:hidden;
+}
+.kitchen-panel::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius:inherit;
+  background: conic-gradient(from var(--aurora-a) at 50% 50%,
+    transparent, color-mix(in oklab, var(--cyan) 30%, transparent) 12%, transparent 26%,
+    transparent 55%, color-mix(in oklab, var(--magenta) 26%, transparent) 68%, transparent 82%);
+  animation: border-sweep 18s linear infinite;
+  padding:1px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events:none;
+}
+.kitchen-grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items:start;
+}
+.kitchen-points{
+  display:grid; gap:1.3rem;
+  list-style:none;
+}
+.kitchen-points li{
+  display:grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items:start;
+  padding: 1.1rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--cyan) 10%, transparent);
+  background: color-mix(in oklab, oklch(0.18 0.04 268) 42%, transparent);
+}
+.kitchen-points .pt-ico{
+  display:grid; place-items:center;
+  width:2.5rem; height:2.5rem;
+  border-radius: 10px;
+  color: var(--cyan);
+  border:1px solid color-mix(in oklab, var(--cyan) 35%, transparent);
+  background: color-mix(in oklab, var(--cyan) 8%, transparent);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--cyan) 18%, transparent), inset 0 0 10px color-mix(in oklab, var(--cyan) 12%, transparent);
+}
+.kitchen-points li:nth-child(2) .pt-ico{ color: var(--amber); border-color: color-mix(in oklab, var(--amber) 35%, transparent); background: color-mix(in oklab, var(--amber) 8%, transparent); box-shadow: 0 0 16px color-mix(in oklab, var(--amber) 18%, transparent), inset 0 0 10px color-mix(in oklab, var(--amber) 12%, transparent); }
+.kitchen-points li:nth-child(3) .pt-ico{ color: var(--magenta); border-color: color-mix(in oklab, var(--magenta) 35%, transparent); background: color-mix(in oklab, var(--magenta) 8%, transparent); box-shadow: 0 0 16px color-mix(in oklab, var(--magenta) 18%, transparent), inset 0 0 10px color-mix(in oklab, var(--magenta) 12%, transparent); }
+.pt-ico svg{ width:1.15rem; height:1.15rem; }
+.kitchen-points h3{
+  font-size:.98rem; font-weight:700;
+  letter-spacing:.08em;
+  margin-bottom:.15rem;
+}
+.kitchen-points p{
+  font-size:.82rem;
+  color: var(--ink-dim);
+  line-height:1.85;
+}
+
+.reveal{ opacity:0; transform: translateY(26px); }
+.reveal.in{
+  opacity:1; transform:none;
+  transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.reveal:nth-child(2){ transition-delay:.08s; }
+.reveal:nth-child(3){ transition-delay:.16s; }
+.reveal:nth-child(4){ transition-delay:.24s; }
+
+.site-foot{
+  border-top:1px solid var(--line);
+  background: color-mix(in oklab, oklch(0.1 0.03 275) 78%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-block: clamp(2.6rem, 6vw, 4rem) 2rem;
+}
+.foot-grid{
+  display:flex; flex-wrap:wrap;
+  justify-content:space-between;
+  gap:2rem;
+  align-items:flex-start;
+  margin-bottom:2.4rem;
+}
+.foot-brand{ display:grid; gap:.6rem; max-width:26em; }
+.foot-brand .en{
+  font-family: var(--font-en);
+  font-weight:600;
+  font-size: clamp(.66rem, 2vw, .8rem);
+  letter-spacing:.28em;
+  color: var(--cyan);
+  text-shadow: 0 0 14px color-mix(in oklab, var(--cyan) 50%, transparent);
+}
+.foot-brand .jp{ font-size:.85rem; color: var(--ink-dim); }
+.foot-links{ list-style:none; display:grid; gap:.55rem; }
+.foot-links a{
+  font-size:.8rem;
+  color: var(--ink-dim);
+  text-decoration:none;
+  letter-spacing:.08em;
+  transition: color .3s, text-shadow .3s;
+}
+.foot-links a:hover{ color: var(--cyan); text-shadow: 0 0 12px color-mix(in oklab, var(--cyan) 50%, transparent); }
+.foot-links .lbl{
+  font-family: var(--font-en);
+  font-size:.6rem; font-weight:600;
+  letter-spacing:.36em;
+  text-transform:uppercase;
+  color: var(--ink-faint);
+  margin-bottom:.4rem;
+}
+.copyright{
+  border-top:1px solid color-mix(in oklab, var(--cyan) 8%, transparent);
+  padding-top:1.4rem;
+  display:flex; flex-wrap:wrap; gap:.8rem;
+  justify-content:space-between;
+  font-size:.68rem;
+  letter-spacing:.14em;
+  color: var(--ink-faint);
+}
+.copyright .en{ font-family: var(--font-en); letter-spacing:.26em; }
+
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .card-media img{
+      animation: parallax linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes parallax{
+      from{ transform: scale(1.1) translateY(3%); }
+      to{ transform: scale(1.1) translateY(-3%); }
+    }
+  }
+}
+
+@media (max-width: 900px){
+  .kitchen-grid{ grid-template-columns: 1fr; }
+  .tate{ display:none; }
+}
+@media (max-width: 560px){
+  .hero{ min-height: auto; }
+  .head-cta{ font-size:.6rem; padding:.55em 1.1em .5em; }
+  .brandmark .jp{ display:none; }
+  .card-body{ padding: 1.15rem 1.2rem 1.3rem; }
+  .kitchen-panel{ padding: 1.9rem 1.4rem; }
+  .kitchen-points li{ padding: 1rem .95rem; }
+  .sec-head h2 br{ display:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration: .001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001s !important;
+  }
+  .reveal{ opacity:1; transform:none; }
+  .card{ transform:none !important; }
+  #motes{ display:none; }
+  .spot{ display:none; }
+  .ticker-track{ animation:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true"></div>
+<canvas id="motes" aria-hidden="true"></canvas>
+<div class="spot" aria-hidden="true"></div>
+<svg class="grain" aria-hidden="true" width="100%" height="100%">
+  <filter id="nz"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer></filter>
+  <rect width="100%" height="100%" filter="url(#nz)"/>
+</svg>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brandmark" href="#top" aria-label="新宿のお弁当屋さん トップへ">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="34" height="34" rx="9" stroke="oklch(0.87 0.115 195)" stroke-width="1.6"/>
+        <path d="M11 24c2.5-6 6-9 9-9s6.5 3 9 9" stroke="oklch(0.72 0.19 345)" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M15 13.5c0-1.8 1-3 2-3.6M20 12.6c0-1.8 1-3 2-3.6M25 13.5c0-1.8 1-3 2-3.6" stroke="oklch(0.87 0.115 195)" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>
+        <line x1="10" y1="28.5" x2="30" y2="28.5" stroke="oklch(0.87 0.115 195)" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="en">SHINJUKU&nbsp;BENTO</span>
+        <span class="jp">新宿のお弁当屋さん</span>
+      </span>
+    </a>
+    <a class="head-cta" href="#brands">ORDER&nbsp;NOW</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="hero-kicker">Cloud Kitchen — Shinjuku, Tokyo</p>
+      <h1 id="hero-title"><span class="neon">眠らない新宿へ、</span><br>できたてを届ける。</h1>
+      <p class="hero-en">Midnight Delivery / Four Virtual Brands, One Kitchen</p>
+      <p class="hero-lead">
+        新宿のクラウドキッチンから、デリバリー専門でお届けする4つのバーチャルブランド。
+        ネオンの灯る街の片隅で、今日も湯気を立てて、あなたの一食を仕込んでいます。
+      </p>
+      <div class="hero-actions">
+        <a class="btn-neon" href="#brands">
+          CHOOSE&nbsp;YOUR&nbsp;BENTO
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v10m0 0l4-4m-4 4L4 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="hero-note">カードを選ぶと各ブランドの注文ページへ移動します</p>
+      </div>
+      <p class="tate" aria-hidden="true">新宿 <b>―</b> クラウドキッチン <b>―</b> デリバリー専門</p>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Shinjuku Bento <b>◆</b> Delivery Only</span>
+      <span>Healthy &amp; Grill Mado's <b>◆</b> Chicken, Veggies &amp; Brown Rice</span>
+      <span>HAYASHii. <b>◆</b> steww&amp;co.</span>
+      <span>Four Brands <b>◆</b> One Cloud Kitchen</span>
+      <span>Shinjuku Bento <b>◆</b> Delivery Only</span>
+      <span>Healthy &amp; Grill Mado's <b>◆</b> Chicken, Veggies &amp; Brown Rice</span>
+      <span>HAYASHii. <b>◆</b> steww&amp;co.</span>
+      <span>Four Brands <b>◆</b> One Cloud Kitchen</span>
+    </div>
+  </div>
+
+  <section class="brands" id="brands" aria-labelledby="brands-title">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="sec-eyebrow">Virtual Brands</p>
+        <h2 id="brands-title">4つの専門店、ひとつのキッチンから。</h2>
+        <p>気分で選べる4つの味。それぞれの看板をタップすると、注文ページが開きます。</p>
+      </div>
+      <div class="brand-grid">
+        <a class="card reveal" href="https://www.order.store/store/%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%26%E3%82%AF%E3%83%AA%E3%83%AB-%E3%83%9E%E3%83%88%E3%82%B9-%E6%96%B0%E5%AE%BF%E5%BA%97-healthy%26grill-mados-shinjuku/Uif6IEcdTCejalZvpRHZZg" target="_blank" rel="noopener">
+          <span class="card-media">
+            <img src="assets/mados.jpeg" alt="ヘルシー&グリル マドズのお弁当" width="2048" height="1638" loading="eager" decoding="async">
+            <span class="card-no">SIGN&nbsp;01</span>
+          </span>
+          <span class="card-body">
+            <span class="card-en">Healthy&amp;Grill Mado's</span>
+            <span class="card-jp">ヘルシー&amp;グリル マドズ</span>
+            <span class="card-desc">香ばしいグリルと彩りのバランス。がんばる夜のためのヘルシープレート。</span>
+            <span class="card-order">ORDER
+              <span class="arr"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="card reveal" href="https://www.order.store/store/%E3%83%81%E3%82%AD%E3%83%B3%E3%81%A8%E9%87%8E%E8%8F%9C%E3%81%A8%E7%8E%84%E7%B1%B3%E3%80%82-%E6%96%B0%E5%AE%BF%E5%BA%97/zBnMYQG9VtuGtSeLMC99Gg" target="_blank" rel="noopener">
+          <span class="card-media">
+            <img src="assets/chicken-genmai.jpeg" alt="チキンと野菜と玄米。のお弁当" width="640" height="512" loading="eager" decoding="async">
+            <span class="card-no">SIGN&nbsp;02</span>
+          </span>
+          <span class="card-body">
+            <span class="card-en">Chicken, Veggies &amp; Brown Rice</span>
+            <span class="card-jp">チキンと野菜と玄米。</span>
+            <span class="card-desc">名前がそのままメニュー。シンプルに整える、深夜の正解。</span>
+            <span class="card-order">ORDER
+              <span class="arr"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="card reveal" href="https://www.order.store/store/%E3%83%8F%E3%83%A4%E3%82%B7%E3%83%A9%E3%82%A4%E3%82%B9%E3%81%AE%E3%81%8A%E5%BA%97-hayashii-%E6%96%B0%E5%AE%BF%E5%BA%97/KissL0GJUKC6WZ-bwJLL-A" target="_blank" rel="noopener">
+          <span class="card-media">
+            <img src="assets/hayashii.jpeg" alt="ハヤシライスのお店 HAYASHii. のハヤシライス" width="2048" height="1638" loading="lazy" decoding="async">
+            <span class="card-no">SIGN&nbsp;03</span>
+          </span>
+          <span class="card-body">
+            <span class="card-en">Hayashi Rice Kitchen</span>
+            <span class="card-jp">ハヤシライスのお店 HAYASHii.</span>
+            <span class="card-desc">濃厚なコクを一皿に。夜更けに沁みる、とろけるハヤシ。</span>
+            <span class="card-order">ORDER
+              <span class="arr"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </span>
+        </a>
+        <a class="card reveal" href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">
+          <span class="card-media">
+            <img src="assets/steww-co.jpeg" alt="クリームシチューのお店 steww&co. のクリームシチュー" width="2048" height="1638" loading="lazy" decoding="async">
+            <span class="card-no">SIGN&nbsp;04</span>
+          </span>
+          <span class="card-body">
+            <span class="card-en">Cream Stew Shop steww&amp;co.</span>
+            <span class="card-jp">クリームシチューのお店 steww&amp;co.</span>
+            <span class="card-desc">白い湯気とやさしいクリーム。ネオンの街のほっとする灯り。</span>
+            <span class="card-order">ORDER
+              <span class="arr"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="kitchen" aria-labelledby="kitchen-title">
+    <div class="wrap">
+      <div class="kitchen-panel reveal">
+        <div class="kitchen-grid">
+          <div class="sec-head" style="margin-block-end:0">
+            <p class="sec-eyebrow">Our Kitchen</p>
+            <h2 id="kitchen-title">看板は4つ、<br>火を入れる場所はひとつ。</h2>
+            <p>
+              新宿の路地裏、ひとつのクラウドキッチン。店先はありません。
+              あるのは、4つのブランドの味を仕込むコンロと、配達員へ手渡す直前まで湯気を守るパスだけ。
+              できたてのまま、街の夜へ送り出します。
+            </p>
+          </div>
+          <ul class="kitchen-points">
+            <li>
+              <span class="pt-ico" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2c1 2-2 3-1 5 .7 1.4 2.5 1.4 3-.5C14 8 15 9.6 15 12a5 5 0 0 1-10 0c0-3 2.4-4.5 3-7 .3-1.2.7-2.2 2-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+              <div><h3>できたてを、そのまま</h3><p>注文が入ってから仕上げる、デリバリー専門キッチンの段取り。</p></div>
+            </li>
+            <li>
+              <span class="pt-ico" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="6" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 10h14M7 6V4.5A1.5 1.5 0 0 1 8.5 3h3A1.5 1.5 0 0 1 13 4.5V6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+              <div><h3>4つの看板を、一晩で</h3><p>グリル、玄米、ハヤシ、シチュー。気分に合わせて選べる専門店の味。</p></div>
+            </li>
+            <li>
+              <span class="pt-ico" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M3 15l4.5-9L11 12l2.5-4L17 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="4" r="1.3" stroke="currentColor" stroke-width="1.3"/></svg></span>
+              <div><h3>新宿の夜と、並走する</h3><p>眠らない街のリズムに合わせて、今日も灯りをともします。</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <p class="en">SHINJUKU BENTO / ORDER &amp; DELIVERY</p>
+        <p class="jp">新宿のお弁当屋さん — クラウドキッチンから4つのバーチャルブランドをデリバリーでお届けします。</p>
+      </div>
+      <ul class="foot-links">
+        <li class="lbl">Brands</li>
+        <li><a href="https://www.order.store/store/%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%26%E3%82%AF%E3%83%AA%E3%83%AB-%E3%83%9E%E3%83%88%E3%82%B9-%E6%96%B0%E5%AE%BF%E5%BA%97-healthy%26grill-mados-shinjuku/Uif6IEcdTCejalZvpRHZZg" target="_blank" rel="noopener">ヘルシー&amp;グリル マドズ</a></li>
+        <li><a href="https://www.order.store/store/%E3%83%81%E3%82%AD%E3%83%B3%E3%81%A8%E9%87%8E%E8%8F%9C%E3%81%A8%E7%8E%84%E7%B1%B3%E3%80%82-%E6%96%B0%E5%AE%BF%E5%BA%97/zBnMYQG9VtuGtSeLMC99Gg" target="_blank" rel="noopener">チキンと野菜と玄米。</a></li>
+        <li><a href="https://www.order.store/store/%E3%83%8F%E3%83%A4%E3%82%B7%E3%83%A9%E3%82%A4%E3%82%B9%E3%81%AE%E3%81%8A%E5%BA%97-hayashii-%E6%96%B0%E5%AE%BF%E5%BA%97/KissL0GJUKC6WZ-bwJLL-A" target="_blank" rel="noopener">ハヤシライスのお店 HAYASHii.</a></li>
+        <li><a href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">クリームシチューのお店 steww&amp;co.</a></li>
+      </ul>
+    </div>
+    <div class="copyright">
+      <span>&copy; 新宿のお弁当屋さん</span>
+      <span class="en">SHINJUKU&nbsp;—&nbsp;MIDNIGHT&nbsp;DELIVERY</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  const reveals = document.querySelectorAll(".reveal");
+  reveals.forEach(el => io.observe(el));
+  const revealAll = () => reveals.forEach(el => el.classList.add("in"));
+  addEventListener("load", () => setTimeout(revealAll, 600), { once: true });
+  setTimeout(revealAll, 2600);
+
+  const prefetchLazy = () => {
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      const pre = new Image();
+      pre.src = img.currentSrc || img.src;
+    });
+  };
+  addEventListener("load", () => setTimeout(prefetchLazy, 400), { once: true });
+
+  if (!reduced.matches) {
+    let sx = innerWidth / 2, sy = innerHeight * 0.3, tx = sx, ty = sy, spotRaf = 0;
+    const root = document.documentElement;
+    const tick = () => {
+      sx += (tx - sx) * 0.12; sy += (ty - sy) * 0.12;
+      root.style.setProperty("--mx", sx.toFixed(1) + "px");
+      root.style.setProperty("--my", sy.toFixed(1) + "px");
+      if (Math.abs(tx - sx) + Math.abs(ty - sy) > 0.5) spotRaf = requestAnimationFrame(tick);
+      else spotRaf = 0;
+    };
+    addEventListener("pointermove", (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (!spotRaf) spotRaf = requestAnimationFrame(tick);
+    }, { passive: true });
+
+    if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      document.querySelectorAll(".card").forEach(card => {
+        let raf = 0, px = 0, py = 0;
+        const apply = () => {
+          raf = 0;
+          card.style.setProperty("--ry", (px * 7).toFixed(2) + "deg");
+          card.style.setProperty("--rx", (py * -7).toFixed(2) + "deg");
+          card.style.setProperty("--gx", ((px + 0.5) * 100).toFixed(1) + "%");
+          card.style.setProperty("--gy", ((py + 0.5) * 100).toFixed(1) + "%");
+        };
+        card.addEventListener("pointermove", (e) => {
+          const r = card.getBoundingClientRect();
+          px = (e.clientX - r.left) / r.width - 0.5;
+          py = (e.clientY - r.top) / r.height - 0.5;
+          if (!raf) raf = requestAnimationFrame(apply);
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--rx", "0deg");
+          card.style.setProperty("--ry", "0deg");
+        });
+      });
+    }
+
+    const cv = document.getElementById("motes");
+    const ctx = cv.getContext("2d");
+    let W = 0, H = 0, dpr = 1, motes = [];
+    const sprite = (hue) => {
+      const s = document.createElement("canvas");
+      s.width = s.height = 64;
+      const c = s.getContext("2d");
+      const g = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, `oklch(0.92 0.07 ${hue} / 0.9)`);
+      g.addColorStop(0.35, `oklch(0.8 0.1 ${hue} / 0.28)`);
+      g.addColorStop(1, "transparent");
+      c.fillStyle = g;
+      c.fillRect(0, 0, 64, 64);
+      return s;
+    };
+    const sprites = [sprite(195), sprite(75), sprite(345), sprite(295)];
+    const seed = () => {
+      const n = Math.round(Math.min(70, Math.max(26, W * H / 34000)));
+      motes = Array.from({ length: n }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 1.2 + Math.random() * 3.4,
+        vy: 0.12 + Math.random() * 0.4,
+        sway: 0.3 + Math.random() * 0.9,
+        ph: Math.random() * Math.PI * 2,
+        tw: 0.4 + Math.random() * 0.6,
+        sp: sprites[Math.random() < 0.55 ? 0 : (1 + Math.floor(Math.random() * 3))]
+      }));
+    };
+    const resize = () => {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      W = innerWidth; H = innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      cv.style.width = W + "px"; cv.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    };
+    resize();
+    addEventListener("resize", resize, { passive: true });
+    let t = 0, hidden = false;
+    document.addEventListener("visibilitychange", () => { hidden = document.hidden; if (!hidden) loop(); });
+    const loop = () => {
+      if (hidden || reduced.matches) { ctx.clearRect(0, 0, W, H); return; }
+      t += 0.016;
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "lighter";
+      for (const m of motes) {
+        m.y -= m.vy;
+        m.x += Math.sin(t * m.tw + m.ph) * m.sway * 0.25;
+        if (m.y < -12) { m.y = H + 12; m.x = Math.random() * W; }
+        if (m.x < -12) m.x = W + 12; else if (m.x > W + 12) m.x = -12;
+        const a = 0.35 + 0.3 * Math.sin(t * m.tw * 1.7 + m.ph);
+        ctx.globalAlpha = Math.max(0.08, a);
+        const d = m.r * 6;
+        ctx.drawImage(m.sp, m.x - d / 2, m.y - d / 2, d, d);
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(loop);
+    };
+    loop();
+    reduced.addEventListener?.("change", () => { if (!reduced.matches) loop(); });
+  }
+})();
+</script>
+
+<!-- design-switcher -->
+<div class="ds-switch" data-current="neotokyo">
+  <button class="ds-toggle" type="button" aria-expanded="false" aria-controls="ds-panel" aria-haspopup="true">
+    <svg class="ds-ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.4"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.4"/></svg>
+    <span class="ds-toggle-t">デザイン</span>
+  </button>
+  <div class="ds-panel" id="ds-panel" role="menu" aria-label="デザインを切り替え" hidden>
+    <p class="ds-head">デザインを切り替え</p>
+    <div class="ds-opts"><a class="ds-opt" data-key="wamodern" href="wamodern.html" role="menuitemradio"><span class="ds-opt-l">和モダン</span><span class="ds-opt-s">Editorial</span></a><a class="ds-opt" data-key="neotokyo" href="neotokyo.html" role="menuitemradio"><span class="ds-opt-l">ネオ東京</span><span class="ds-opt-s">Midnight</span></a><a class="ds-opt" data-key="kinetic" href="kinetic.html" role="menuitemradio"><span class="ds-opt-l">キネティック</span><span class="ds-opt-s">Kinetic</span></a><a class="ds-opt" data-key="bento" href="bento.html" role="menuitemradio"><span class="ds-opt-l">ベント</span><span class="ds-opt-s">Craft</span></a></div>
+  </div>
+</div>
+<style>
+.ds-switch{position:fixed;right:clamp(12px,2.4vw,22px);bottom:clamp(12px,2.4vw,22px);z-index:2147483000;font-family:ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;color:#f4f4f5;line-height:1.3;letter-spacing:.02em}
+.ds-switch *{box-sizing:border-box}
+.ds-toggle{display:inline-flex;align-items:center;gap:.5em;padding:.62em .95em;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(20,20,24,.72);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);color:#f4f4f5;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;box-shadow:0 8px 26px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);transition:transform .18s ease,border-color .2s ease,background .2s ease}
+.ds-toggle:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.32);background:rgba(30,30,36,.82)}
+.ds-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-ico{fill:currentColor;opacity:.9;flex:none}
+.ds-panel{position:absolute;right:0;bottom:calc(100% + 10px);width:230px;padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(18,18,22,.88);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);transform-origin:bottom right;animation:ds-in .22s cubic-bezier(.22,1,.36,1)}
+@keyframes ds-in{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+.ds-head{margin:2px 4px 10px;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.ds-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ds-opt{display:flex;flex-direction:column;gap:2px;padding:.7em .8em;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.04);color:#f4f4f5;text-decoration:none;transition:background .16s ease,border-color .16s ease,transform .16s ease}
+.ds-opt:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);transform:translateY(-1px)}
+.ds-opt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-opt-l{font-size:13px;font-weight:800;letter-spacing:.04em}
+.ds-opt-s{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.48)}
+.ds-opt[aria-current="true"]{background:#f4f4f5;border-color:#f4f4f5;color:#141418}
+.ds-opt[aria-current="true"] .ds-opt-s{color:rgba(20,20,24,.55)}
+.ds-switch[data-open="true"] .ds-toggle{border-color:rgba(255,255,255,.34);background:rgba(30,30,36,.82)}
+@media (max-width:420px){.ds-toggle-t{display:none}.ds-panel{width:200px}}
+@media (prefers-reduced-motion:reduce){.ds-toggle,.ds-opt{transition:none}.ds-panel{animation:none}}
+@media print{.ds-switch{display:none}}
+</style>
+<script>
+(() => {
+  const KEY = 'shinjuku-design';
+  const root = document.querySelector('.ds-switch');
+  if (!root) return;
+  const current = root.getAttribute('data-current');
+  try { localStorage.setItem(KEY, current); } catch (e) {}
+  const toggle = root.querySelector('.ds-toggle');
+  const panel = root.querySelector('.ds-panel');
+  root.querySelectorAll('.ds-opt').forEach(o => {
+    const isCur = o.getAttribute('data-key') === current;
+    o.setAttribute('aria-current', isCur ? 'true' : 'false');
+    o.setAttribute('aria-checked', isCur ? 'true' : 'false');
+    o.addEventListener('click', () => { try { localStorage.setItem(KEY, o.getAttribute('data-key')); } catch (e) {} });
+  });
+  const open = () => { panel.hidden = false; toggle.setAttribute('aria-expanded', 'true'); root.setAttribute('data-open', 'true'); };
+  const close = () => { panel.hidden = true; toggle.setAttribute('aria-expanded', 'false'); root.removeAttribute('data-open'); };
+  toggle.addEventListener('click', e => { e.stopPropagation(); panel.hidden ? open() : close(); });
+  document.addEventListener('click', e => { if (!root.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { close(); toggle.focus(); } });
+})();
+</script>
+</body>
+</html>
