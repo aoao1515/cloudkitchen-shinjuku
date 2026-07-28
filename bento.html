@@ -480,6 +480,53 @@ h1 .accent{
   font-size:.75rem; color:oklch(68% 0.02 120); font-weight:500;
 }
 
+/* ---------- recruit (footer corner tile) ---------- */
+.recruit{
+  margin-top: clamp(26px, 4vw, 42px);
+  margin-left: auto;
+  max-width: 480px;
+  display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 18px);
+  background: var(--paper); color: var(--ink);
+  border: var(--line) solid var(--ink);
+  border-radius: var(--r-tile);
+  box-shadow: 0 6px 0 oklch(14% 0.02 140);
+  padding: clamp(16px, 2.4vw, 22px) clamp(18px, 2.6vw, 26px);
+}
+.recruit-icon{
+  flex: none; width: 54px; aspect-ratio: 1; border-radius: 16px;
+  display: grid; place-items: center;
+  background: var(--yolk); border: 2px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+}
+.recruit-icon svg{ width: 36px; height: auto; }
+.recruit-body{ display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.recruit-en{
+  font-family: "M PLUS Rounded 1c","Rounded Mplus 1c",sans-serif;
+  font-size: .62rem; font-weight: 800; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--terra-deep);
+}
+.recruit h3{ font-size: 1.12rem; font-weight: 900; letter-spacing: .03em; line-height: 1.5; }
+.recruit p{ font-size: .82rem; font-weight: 500; color: var(--ink-soft); line-height: 1.9; text-wrap: pretty; }
+.recruit-mail{
+  margin-top: 6px; width: fit-content; max-width: 100%;
+  display: inline-flex; align-items: center; gap: .55em;
+  font-weight: 900; font-size: .85rem; text-decoration: none; white-space: nowrap;
+  background: var(--yolk);
+  border: 2px solid var(--ink); border-radius: 999px;
+  padding: .45em 1.15em;
+  box-shadow: 0 3px 0 var(--ink);
+  transition: translate .14s cubic-bezier(.34,1.56,.64,1), box-shadow .14s ease, background .2s ease;
+}
+.recruit-mail:hover{ translate: 0 -2px; box-shadow: 0 5px 0 var(--ink); background: color-mix(in oklch, var(--yolk) 70%, var(--terra)); }
+.recruit-mail:active{ translate: 0 2px; box-shadow: 0 1px 0 var(--ink); }
+.recruit-mail svg{ width: 1em; height: 1em; flex: none; }
+@media (max-width: 700px){ .recruit{ max-width: none; } }
+@media (max-width: 400px){
+  .recruit{ gap: 12px; }
+  .recruit-icon{ width: 44px; border-radius: 13px; }
+  .recruit-icon svg{ width: 30px; }
+}
+
 /* ---------- wave divider ---------- */
 .divider{ display:block; width:100%; height:clamp(20px,3vw,32px); color:var(--ink); margin-block: -2px; }
 
@@ -732,6 +779,26 @@ h1 .accent{
         </ul>
       </nav>
     </div>
+    <aside class="recruit" aria-labelledby="recruit-title">
+      <span class="recruit-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 44" fill="none">
+          <path d="M24 4.5C16.5 4.5 8.4 17.4 6.4 26c-1.5 6.6 2.5 10.8 8.6 11.6 6 .8 12 .8 18 0 6.1-.8 10.1-5 8.6-11.6C39.6 17.4 31.5 4.5 24 4.5z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.2" stroke-linejoin="round"/>
+          <rect x="17" y="25.5" width="14" height="11.5" rx="3" fill="var(--nori)" stroke="var(--ink)" stroke-width="2.6"/>
+          <circle cx="19" cy="18.5" r="1.6" fill="var(--ink)"/>
+          <circle cx="29" cy="18.5" r="1.6" fill="var(--ink)"/>
+          <path d="M21.5 22c1.4 1.5 3.6 1.5 5 0" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div class="recruit-body">
+        <span class="recruit-en">We're Hiring</span>
+        <h3 id="recruit-title">スタッフ募集中！</h3>
+        <p>24時間営業のデリバリー専門のお弁当屋さんです。お仕事はお弁当作り＆配達（普通自動車運転免許必須）など。ご応募・お問い合わせはメールでどうぞ。</p>
+        <a class="recruit-mail" href="mailto:info@aoaooo.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 7.5l8 6 8-6"/></svg>
+          info@aoaooo.com
+        </a>
+      </div>
+    </aside>
     <div class="foot-bottom">
       <span>© Shinjuku Bento — Cloud Kitchen, Shinjuku</span>
       <span>DELIVERY ONLY / 4 BRANDS, 1 KITCHEN</span>
