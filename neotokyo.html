@@ -592,6 +592,64 @@ section{ position:relative; }
   color: var(--ink-faint);
   margin-bottom:.4rem;
 }
+.recruit{
+  --card-glow: var(--amber);
+  max-width: 36em;
+  margin-block-end: 2.4rem;
+  display:grid; gap:.4rem;
+  padding: 1.2rem 1.35rem 1.35rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--card-glow) 20%, transparent);
+  background: var(--glass);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow:
+    0 0 26px -10px color-mix(in oklab, var(--card-glow) 30%, transparent),
+    inset 0 0 16px color-mix(in oklab, var(--card-glow) 6%, transparent);
+}
+.recruit-en{
+  font-family: var(--font-en);
+  font-size:.6rem; font-weight:600;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color: color-mix(in oklab, var(--card-glow) 80%, white);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--card-glow) 45%, transparent);
+}
+.recruit h2{
+  font-size:.98rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  line-height:1.5;
+}
+.recruit p{
+  font-size:.8rem;
+  color: var(--ink-dim);
+  letter-spacing:.05em;
+  line-height:1.85;
+  text-wrap: pretty;
+}
+.recruit-mail{
+  justify-self:start;
+  margin-top:.55rem;
+  display:inline-flex; align-items:center; gap:.7em;
+  font-family: var(--font-en);
+  font-size:.66rem; font-weight:600;
+  letter-spacing:.14em;
+  text-decoration:none;
+  color: var(--ink);
+  padding:.55em 1.2em .5em;
+  border-radius:999px;
+  border:1px solid color-mix(in oklab, var(--card-glow) 45%, transparent);
+  background: color-mix(in oklab, var(--card-glow) 9%, transparent);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--card-glow) 18%, transparent), inset 0 0 10px color-mix(in oklab, var(--card-glow) 8%, transparent);
+  transition: box-shadow .35s, background .35s;
+}
+.recruit-mail:hover{
+  background: color-mix(in oklab, var(--card-glow) 18%, transparent);
+  box-shadow: 0 0 24px color-mix(in oklab, var(--card-glow) 34%, transparent), inset 0 0 12px color-mix(in oklab, var(--card-glow) 14%, transparent);
+}
+.recruit-mail svg{ width:.95em; height:.95em; flex:none; color: color-mix(in oklab, var(--card-glow) 85%, white); }
+
 .copyright{
   border-top:1px solid color-mix(in oklab, var(--cyan) 8%, transparent);
   padding-top:1.4rem;
@@ -824,6 +882,15 @@ section{ position:relative; }
         <li><a href="https://www.order.store/store/%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC%E3%81%AE%E3%81%8A%E5%BA%97-steww%26co-%E6%96%B0%E5%AE%BF%E5%BA%97/6uTXSuIGRlm6qACpjmyKzA" target="_blank" rel="noopener">クリームシチューのお店 steww&amp;co.</a></li>
       </ul>
     </div>
+    <aside class="recruit" aria-labelledby="recruit-title">
+      <p class="recruit-en">Staff Wanted</p>
+      <h2 id="recruit-title">スタッフ募集中！</h2>
+      <p>24時間営業のデリバリー専門のお弁当屋さんです。お仕事はお弁当作り＆配達（普通自動車運転免許必須）など。ご応募・お問い合わせはメールでお気軽にどうぞ。</p>
+      <a class="recruit-mail" href="mailto:info@aoaooo.com">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 4.5L8 9l5.5-4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        info@aoaooo.com
+      </a>
+    </aside>
     <div class="copyright">
       <span>&copy; 新宿のお弁当屋さん</span>
       <span class="en">SHINJUKU&nbsp;—&nbsp;MIDNIGHT&nbsp;DELIVERY</span>

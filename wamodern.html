@@ -566,6 +566,79 @@ footer.site{
   transition: width 0.35s;
 }
 .foot-links a:hover::before{ width: 1.2em; }
+.recruit{
+  justify-self: end;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.1rem, 2.5vw, 1.6rem);
+  max-width: 30rem;
+  border: 1px solid var(--line);
+  background: color-mix(in oklch, var(--paper-deep) 45%, var(--paper));
+  padding: clamp(1.2rem, 3vw, 1.7rem) clamp(1.3rem, 3vw, 1.9rem);
+  position: relative;
+}
+.recruit::after{
+  content:"";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+.recruit-fuda{
+  flex: none;
+  writing-mode: vertical-rl;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  color: var(--kaki-deep);
+  border-right: 1px solid var(--line);
+  padding-right: 1.1em;
+  padding-top: 0.15em;
+}
+.recruit-en{ color: var(--kaki-deep); }
+.recruit-title{
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.14rem;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  margin: 0.35rem 0 0.45rem;
+}
+.recruit-text{
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.95;
+}
+.recruit-mail{
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  text-decoration: none;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
+  padding: 0.15em 0 0.3em;
+  position: relative;
+}
+.recruit-mail::after{
+  content:"";
+  position: absolute;
+  left: 0; bottom: 0.1em;
+  width: 100%;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(.22,1,.36,1), background-color 0.3s;
+}
+.recruit-mail:hover::after{ background: var(--kaki); transform: scaleX(0.88); }
+.recruit-mail .arrow{ transition: translate 0.4s cubic-bezier(.22,1,.36,1); }
+.recruit-mail:hover .arrow{ translate: 5px 0; }
+@media (max-width: 700px){
+  .recruit{ justify-self: stretch; max-width: none; }
+}
 .foot-bottom{
   border-top: 1px solid var(--line-soft);
   padding-top: 1.6rem;
@@ -778,6 +851,15 @@ html.js .reveal.in{
       </ul>
     </nav>
   </div>
+  <aside class="recruit reveal" aria-labelledby="recruit-title">
+    <p class="recruit-fuda" aria-hidden="true">求人</p>
+    <div class="recruit-body">
+      <p class="en recruit-en">Join Us</p>
+      <h2 id="recruit-title" class="recruit-title">スタッフ募集中！</h2>
+      <p class="recruit-text">24時間営業のデリバリー専門のお弁当屋さんです。お仕事はお弁当作り＆配達（普通自動車運転免許必須）など。ご応募・お問い合わせはメールにてお気軽にどうぞ。</p>
+      <a class="recruit-mail" href="mailto:info@aoaooo.com">info@aoaooo.com<span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </aside>
   <div class="foot-bottom">
     <small>© 新宿のお弁当屋さん — Shinjuku Cloud Kitchen</small>
     <span class="en">Made with care in Shinjuku</span>
