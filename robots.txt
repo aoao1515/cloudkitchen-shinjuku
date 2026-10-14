@@ -1,4 +1,4 @@
-# 新宿のお弁当屋さん — https://shinjuku.aoaooo.com/
+# 新宿のお弁当屋さん — https://shinjukubento.aoaooo.com/
 # 検索エンジン・AIアシスタントのクロールを歓迎します。
 User-agent: *
 Allow: /
@@ -30,4 +30,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://shinjuku.aoaooo.com/sitemap.xml
+Sitemap: https://shinjukubento.aoaooo.com/sitemap.xml
